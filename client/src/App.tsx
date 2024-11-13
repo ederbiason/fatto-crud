@@ -29,9 +29,11 @@ export function App() {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const [taskToDelete, setTaskToDelete] = useState<Task | undefined>(undefined)
 
+  const BACKEND_DOMAIN = import.meta.env.VITE_BACKEND_DOMAIN
+
   const getTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/tasks")
+      const response = await axios.get(`${BACKEND_DOMAIN}/api/tasks`)
 
       setTasks(response.data)
     } catch (error: any) {
@@ -55,7 +57,7 @@ export function App() {
   const handleDeleteTask = async () => {
     if (taskToDelete?.id) {
       try {
-        await axios.delete(`http://localhost:3000/api/tasks/${taskToDelete.id}`)
+        await axios.delete(`${BACKEND_DOMAIN}/api/tasks/${taskToDelete.id}`)
         getTasks()
       } catch (error: any) {
         console.error(error)
@@ -76,9 +78,9 @@ export function App() {
   const handleSaveTask = async (task: Task) => {
     try {
       if (task.id) {
-        await axios.put(`http://localhost:3000/api/tasks/${task.id}`, task)
+        await axios.put(`${BACKEND_DOMAIN}/api/tasks/${task.id}`, task)
       } else {
-        await axios.post("http://localhost:3000/api/tasks", task)
+        await axios.post(`${BACKEND_DOMAIN}/api/tasks`, task)
       }
       setShowDialog(false)
       getTasks()
