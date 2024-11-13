@@ -19,11 +19,5 @@
                 "maxLambdaSize": "50mb"
             }
         }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/src/index.ts"
-        }
     ]
 }
